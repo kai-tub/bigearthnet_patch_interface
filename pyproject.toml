@@ -6,7 +6,7 @@ authors = ["Kai Norman Clasen <kai.ce.tub@gmail.com>"]
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]
-python = "3.7"
+python = "^3.7"
 pydantic = "^1.9.0"
 numpy = "^1.21"
 natsort = "^8.0.2"
