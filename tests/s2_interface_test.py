@@ -110,3 +110,21 @@ def test_pickle():
     assert (
         ben_patch.get_stacked_10m_bands() == ben_patch_2.get_stacked_10m_bands()
     ).all()
+
+
+@pytest.mark.parametrize(
+    ("inp_name", "out_name"),
+    [
+        ("B01", "band01"),
+        ("b01", "band01"),
+        ("B1", "band01"),
+        ("01", "band01"),
+        ("1", "band01"),
+        ("B08A", "band8A"),
+        ("B8A", "band8A"),
+        ("08A", "band8A"),
+        ("8A", "band8A"),
+    ],
+)
+def test_short_to_long_name(inp_name, out_name):
+    assert BigEarthNet_S2_Patch.short_to_long_band_name(inp_name) == out_name

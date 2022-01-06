@@ -1,9 +1,10 @@
-from os import stat
 import pickle
 from typing import Tuple
+from pydantic import validate_arguments, constr
 
 import natsort
 import numpy as np
+from pydantic.types import conint
 from .band_interface import *
 
 __all__ = [
@@ -105,6 +106,28 @@ class BigEarthNet_S2_Patch:
         for k, v in kwargs.items():
             setattr(self, k, v)
         self.__stored_args__ = {**kwargs}
+
+    @staticmethod
+    @validate_arguments
+    def short_to_long_band_name(
+        short_band_name: constr(min_length=1, max_length=4)
+    ) -> str:
+        """
+        Convert a short input band name, such as B01, 01, 1 or B1
+        to the long band name required by the `__init__` function.
+
+        Args:
+            short_band_name (str): Short band name
+        """
+        short_upper = short_band_name.upper()
+        band = short_upper.lstrip("B")
+        if band.endswith("A"):
+            num = band.rstrip("A")
+            band = f"{int(num)}A"
+        else:
+            num = int(band)
+            band = f"{num:02d}"
+        return f"band{band}"
 
     def dump(self, file):
         return pickle.dump(self, file, protocol=4)
