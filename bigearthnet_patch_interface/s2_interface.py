@@ -1,11 +1,28 @@
+from os import stat
+import pickle
 from typing import Tuple
 
 import natsort
 import numpy as np
-
 from .band_interface import *
 
-__all__ = ["BigEarthNet_S2_Patch"]
+__all__ = ["BigEarthNet_S2_Patch", "S2_DN_TO_REFLECTANCE", "random_ben_S2_band"]
+
+S2_DN_TO_REFLECTANCE = 10_000
+
+
+def S2_to_float(arr):
+    return arr / S2_DN_TO_REFLECTANCE
+
+
+def random_ben_S2_band(spatial_resoluion=10, original_dtype=False):
+    pixel_resolution = 1200 // spatial_resoluion
+    arr = np.random.randint(
+        S2_DN_TO_REFLECTANCE, size=(pixel_resolution, pixel_resolution), dtype="uint16"
+    )
+    if not original_dtype:
+        return S2_to_float(arr)
+    return arr
 
 
 class BigEarthNet_S2_Patch:
@@ -62,7 +79,23 @@ class BigEarthNet_S2_Patch:
         # which is important for quick filtering operations!
         self._bands = natsort.natsorted(self.bands, key=lambda band: band.name)
         # store extra kwargs
+        for k, v in kwargs.items():
+            setattr(self, k, v)
         self.__stored_args__ = {**kwargs}
+
+    def dump(self, file):
+        return pickle.dump(self, file, protocol=4)
+
+    def dumps(self):
+        return pickle.dumps(self, protocol=4)
+
+    @staticmethod
+    def load(file) -> "BigEarthNet_S2_Patch":
+        return pickle.load(file)
+
+    @staticmethod
+    def loads(data) -> "BigEarthNet_S2_Patch":
+        return pickle.loads(data)
 
     def get_band_by_name(self, name: str) -> np.ndarray:
         band = None
@@ -70,7 +103,7 @@ class BigEarthNet_S2_Patch:
             if b.name == name:
                 band = b
         if band is None:
-            raise KeyError(f"{name} is not in {self.channel_names}")
+            raise KeyError(f"{name} is not known")
         return band
 
     def get_10m_bands(self) -> Tuple[np.ndarray]:
@@ -82,14 +115,14 @@ class BigEarthNet_S2_Patch:
     def get_60m_bands(self) -> Tuple[np.ndarray]:
         return tuple(b.data for b in self.bands if b.spatial_resolution == 60)
 
-    def get_concatenated_10m_bands(self) -> np.ndarray:
-        return np.concatenate(self.get_10m_bands())
+    def get_stacked_10m_bands(self) -> np.ndarray:
+        return np.stack(self.get_10m_bands())
 
-    def get_concatenated_20m_bands(self) -> np.ndarray:
-        return np.concatenate(self.get_20m_bands())
+    def get_stacked_20m_bands(self) -> np.ndarray:
+        return np.stack(self.get_20m_bands())
 
-    def get_concatenated_60m_bands(self) -> np.ndarray:
-        return np.concatenate(self.get_60m_bands())
+    def get_stacked_60m_bands(self) -> np.ndarray:
+        return np.stack(self.get_60m_bands())
 
     def __repr__(self):
         r_str = f"{self.__class__.__name__} with:\n"
