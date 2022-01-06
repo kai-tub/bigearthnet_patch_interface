@@ -1,6 +1,5 @@
 import pytest
 import numpy as np
-import pickle
 
 from bigearthnet_patch_interface.s2_interface import *
 
@@ -18,6 +17,36 @@ TEST_BANDS = {
     "band01": random_ben_S2_band(spatial_resoluion=60),
     "band09": random_ben_S2_band(spatial_resoluion=60),
 }
+
+
+def test_S2_to_float32():
+    a = np.array([1, 2, 3])
+    r = s2_to_float32(a)
+    assert r.dtype == "float32"
+
+
+def test_S2_to_float64():
+    a = np.array([1, 2, 3])
+    r = s2_to_float64(a)
+    assert r.dtype == "float64"
+
+
+def test_S2_to_float():
+    a = np.array([1, 2, 3])
+    r = s2_to_float(a)
+    assert r.dtype == "float32"
+
+
+@pytest.mark.parametrize(
+    ("spatial_res", "output_shape"),
+    [
+        (10, (120, 120)),
+        (20, (60, 60)),
+        (60, (20, 20)),
+    ],
+)
+def test_random_ben_band(spatial_res, output_shape):
+    assert random_ben_S2_band(spatial_resoluion=spatial_res).shape == output_shape
 
 
 def test_default_s2_patches():

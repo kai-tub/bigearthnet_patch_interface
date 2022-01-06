@@ -6,22 +6,45 @@ import natsort
 import numpy as np
 from .band_interface import *
 
-__all__ = ["BigEarthNet_S2_Patch", "S2_DN_TO_REFLECTANCE", "random_ben_S2_band"]
+__all__ = [
+    "BigEarthNet_S2_Patch",
+    "S2_DN_TO_REFLECTANCE",
+    "random_ben_S2_band",
+    "s2_to_float",
+    "s2_to_float32",
+    "s2_to_float64",
+]
 
 S2_DN_TO_REFLECTANCE = 10_000
 
 
-def S2_to_float(arr):
+def _s2_to_float(arr):
     return arr / S2_DN_TO_REFLECTANCE
 
 
+def s2_to_float64(arr) -> np.ndarray:
+    return np.float64(_s2_to_float(arr))
+
+
+def s2_to_float32(arr) -> np.ndarray:
+    return np.float32(_s2_to_float(arr))
+
+
+def s2_to_float(arr) -> np.ndarray:
+    """
+    Convert to numpy float
+    """
+    return s2_to_float32(arr)
+
+
 def random_ben_S2_band(spatial_resoluion=10, original_dtype=False):
-    pixel_resolution = 1200 // spatial_resoluion
+    BEN_PATCH_SIZE = 1200
+    pixel_resolution = BEN_PATCH_SIZE // spatial_resoluion
     arr = np.random.randint(
         S2_DN_TO_REFLECTANCE, size=(pixel_resolution, pixel_resolution), dtype="uint16"
     )
     if not original_dtype:
-        return S2_to_float(arr)
+        return s2_to_float(arr)
     return arr
 
 
