@@ -2,7 +2,7 @@ import numpy as np
 from typing import Optional, Tuple
 from pydantic import BaseModel, validator
 
-__all__ = ["Band", "BenS2_10mBand", "BenS2_20mBand", "BenS2_60mBand"]
+__all__ = ["Band", "BenS2_10mBand", "BenS2_20mBand", "BenS2_60mBand", "BenS1_Band"]
 
 
 class Band(BaseModel):
@@ -26,6 +26,19 @@ class Band(BaseModel):
 
     def __str__(self):
         return f"{self.name} with {self.spatial_resolution}m spatial resolution and a size of {self.data_shape} pixel"
+
+
+class BenS1_Band(Band):
+    name: str
+    spatial_resolution: int = 10
+    data_shape: Tuple[int, int] = (120, 120)
+
+    @validator("name")
+    def _validate_name(cls, v):
+        ben_s1_bands = ("VV", "VH")
+        if v not in ben_s1_bands:
+            raise ValueError(f"Band name must one of {ben_s1_bands}\nGiven: {v}")
+        return v
 
 
 class BenS2_10mBand(Band):

@@ -101,7 +101,7 @@ class BigEarthNet_S2_Patch:
 
         # guarantee that the bands are naturally sorted
         # which is important for quick filtering operations!
-        self._bands = natsort.natsorted(self.bands, key=lambda band: band.name)
+        self.bands = natsort.natsorted(self.bands, key=lambda band: band.name)
         # store extra kwargs
         for k, v in kwargs.items():
             setattr(self, k, v)
@@ -143,9 +143,9 @@ class BigEarthNet_S2_Patch:
     def loads(data) -> "BigEarthNet_S2_Patch":
         return pickle.loads(data)
 
-    def get_band_by_name(self, name: str) -> np.ndarray:
+    def get_band_data_by_name(self, name: str) -> np.ndarray:
         band = None
-        for b in self._bands:
+        for b in self.bands:
             if b.name == name:
                 band = b
         if band is None:
@@ -172,7 +172,7 @@ class BigEarthNet_S2_Patch:
 
     def __repr__(self):
         r_str = f"{self.__class__.__name__} with:\n"
-        r_str += "\n".join(f"\t{b}" for b in self._bands)
+        r_str += "\n".join(f"\t{b}" for b in self.bands)
         if len(self.__stored_args__) != 0:
             r_str += "\nAnd the extra metadata:\n"
             for key, metadata in self.__stored_args__.items():

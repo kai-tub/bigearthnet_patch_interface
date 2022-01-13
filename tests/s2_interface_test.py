@@ -66,14 +66,14 @@ def test_wrong_resolution():
 @pytest.mark.parametrize("name", ["B01", "B04", "B11"])
 def test_band_by_name(name):
     ben_patch = BigEarthNet_S2_Patch(**TEST_BANDS)
-    isinstance(ben_patch.get_band_by_name(name), np.ndarray)
+    isinstance(ben_patch.get_band_data_by_name(name), np.ndarray)
 
 
 @pytest.mark.parametrize("invalid_name", ["B1", "B10", "band01"])
 def test_invalid_band_by_name(invalid_name):
     ben_patch = BigEarthNet_S2_Patch(**TEST_BANDS)
     with pytest.raises(KeyError):
-        ben_patch.get_band_by_name(invalid_name)
+        ben_patch.get_band_data_by_name(invalid_name)
 
 
 def test_stacked_10m_bands():
@@ -128,3 +128,21 @@ def test_pickle():
 )
 def test_short_to_long_name(inp_name, out_name):
     assert BigEarthNet_S2_Patch.short_to_long_band_name(inp_name) == out_name
+
+
+# def test_interp():
+#     import torch.nn
+
+#     r = torch.rand(1, 120, 120)
+
+#     # bands = torch.unsqueeze(r, 1)  # input for bicubic must be 4 dimensional, e.g. from (6,60,60) to (6,1,60,60)
+#     res1 = torch.nn.functional.interpolate(
+#         torch.unsqueeze(r, 1), [120, 120], mode="bicubic"
+#     )
+#     res2 = torch.nn.functional.interpolate(
+#         torch.unsqueeze(r, 0), [120, 120], mode="bicubic"
+#     )
+#     print(res1)
+#     print(res2)
+#     # assert (res1.flatten() == res2.flatten()).all()
+#     assert False

@@ -71,3 +71,31 @@ def test_20m_name_validation(invalid_name):
 def test_10m_name_validation(invalid_name):
     with pytest.raises(ValueError):
         BenS2_60mBand(name=invalid_name)
+
+
+@pytest.mark.parametrize(
+    "invalid_name",
+    [
+        "wrong_name",
+        "B01",
+        "B02",
+        "B06",
+    ],
+)
+def test_s1_name_validation(invalid_name):
+    with pytest.raises(ValueError):
+        BenS1_Band(name=invalid_name)
+
+
+@pytest.mark.parametrize(
+    "invalid_name",
+    [
+        "wrong_name",
+        "B01",
+        "B02",
+        "B06",
+    ],
+)
+def test_s1_name_validation(invalid_name):
+    with pytest.raises(ValueError):
+        BenS1_Band(name=invalid_name)
