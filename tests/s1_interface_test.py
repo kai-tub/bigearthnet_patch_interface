@@ -14,8 +14,15 @@ def test_random_ben_band():
     assert rand_s1_band.shape == (120, 120)
 
 
-def test_s2_patches_nat_order():
+def test_s1_patches_nat_order():
     ben_patch = BigEarthNet_S1_Patch(**TEST_BANDS)
+    assert (ben_patch.get_bands()[0] == TEST_BANDS["bandVH"]).all()
+    assert (ben_patch.get_bands()[1] == TEST_BANDS["bandVV"]).all()
+
+
+def test_s1_patches_short_init():
+    d = {"VV": TEST_BANDS["bandVV"], "VH": TEST_BANDS["bandVH"]}
+    ben_patch = BigEarthNet_S1_Patch.short_init(**d)
     assert (ben_patch.get_bands()[0] == TEST_BANDS["bandVH"]).all()
     assert (ben_patch.get_bands()[1] == TEST_BANDS["bandVV"]).all()
 

@@ -60,6 +60,14 @@ class BigEarthNet_S1_Patch:
             setattr(self, k, v)
         self.__stored_args__ = {**kwargs}
 
+    @classmethod
+    def short_init(cls, VH: np.ndarray, VV: np.ndarray, **kwargs):
+        """
+        Alternative `__init__` function.
+        Only difference is the encoded names.
+        """
+        return cls(bandVH=VH, bandVV=VV, **kwargs)
+
     @staticmethod
     @validate_arguments
     def short_to_long_band_name(

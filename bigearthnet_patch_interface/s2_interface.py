@@ -129,6 +129,43 @@ class BigEarthNet_S2_Patch:
             band = f"{num:02d}"
         return f"band{band}"
 
+    @classmethod
+    def short_init(
+        cls,
+        B01: np.ndarray,
+        B02: np.ndarray,
+        B03: np.ndarray,
+        B04: np.ndarray,
+        B05: np.ndarray,
+        B06: np.ndarray,
+        B07: np.ndarray,
+        B08: np.ndarray,
+        B8A: np.ndarray,
+        B09: np.ndarray,
+        B11: np.ndarray,
+        B12: np.ndarray,
+        **kwargs,
+    ):
+        """
+        Alternative `__init__` function.
+        Only difference is the encoded names.
+        """
+        return cls(
+            band01=B01,
+            band02=B02,
+            band03=B03,
+            band04=B04,
+            band05=B05,
+            band06=B06,
+            band07=B07,
+            band08=B08,
+            band8A=B8A,
+            band09=B09,
+            band11=B11,
+            band12=B12,
+            **kwargs,
+        )
+
     def dump(self, file):
         return pickle.dump(self, file, protocol=4)
 

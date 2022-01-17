@@ -56,6 +56,27 @@ def test_default_s2_patches():
     assert (ben_patch.get_60m_bands()[0] == TEST_BANDS["band01"]).all()
 
 
+def test_short_init_s2_patches():
+    d = {
+        "B01": TEST_BANDS["band01"],
+        "B02": TEST_BANDS["band02"],
+        "B03": TEST_BANDS["band03"],
+        "B04": TEST_BANDS["band04"],
+        "B05": TEST_BANDS["band05"],
+        "B06": TEST_BANDS["band06"],
+        "B07": TEST_BANDS["band07"],
+        "B08": TEST_BANDS["band08"],
+        "B8A": TEST_BANDS["band8A"],
+        "B09": TEST_BANDS["band09"],
+        "B11": TEST_BANDS["band11"],
+        "B12": TEST_BANDS["band12"],
+    }
+    ben_patch = BigEarthNet_S2_Patch.short_init(**d)
+    assert (ben_patch.get_10m_bands()[0] == TEST_BANDS["band02"]).all()
+    assert (ben_patch.get_20m_bands()[0] == TEST_BANDS["band05"]).all()
+    assert (ben_patch.get_60m_bands()[0] == TEST_BANDS["band01"]).all()
+
+
 def test_wrong_resolution():
     d = TEST_BANDS.copy()
     d["band01"], d["band02"] = d["band02"], d["band01"]
