@@ -99,13 +99,17 @@ class BigEarthNet_S1_Patch:
     def loads(data) -> "BigEarthNet_S1_Patch":
         return pickle.loads(data)
 
-    def get_band_data_by_name(self, name: str) -> np.ndarray:
+    def get_band_by_name(self, name: str) -> Band:
         band = None
         for b in self.bands:
             if b.name == name:
                 band = b
         if band is None:
             raise KeyError(f"{name} is not known")
+        return band
+
+    def get_band_data_by_name(self, name: str) -> np.ndarray:
+        band = self.get_band_by_name(name)
         return band.data
 
     def get_bands(self) -> Tuple[np.ndarray]:

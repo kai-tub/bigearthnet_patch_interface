@@ -1,5 +1,6 @@
 import pytest
 import numpy as np
+from bigearthnet_patch_interface.band_interface import Band
 
 from bigearthnet_patch_interface.s1_interface import *
 
@@ -36,6 +37,12 @@ def test_wrong_resolution():
 
 @pytest.mark.parametrize("name", ["VV", "VH"])
 def test_band_by_name(name):
+    ben_patch = BigEarthNet_S1_Patch(**TEST_BANDS)
+    isinstance(ben_patch.get_band_by_name(name), Band)
+
+
+@pytest.mark.parametrize("name", ["VV", "VH"])
+def test_band_by_name_data(name):
     ben_patch = BigEarthNet_S1_Patch(**TEST_BANDS)
     isinstance(ben_patch.get_band_data_by_name(name), np.ndarray)
 
