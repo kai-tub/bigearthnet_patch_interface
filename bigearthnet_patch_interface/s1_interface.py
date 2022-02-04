@@ -120,7 +120,7 @@ class BigEarthNet_S1_Patch:
 
     def __repr__(self):
         r_str = f"{self.__class__.__name__} with:\n"
-        r_str += "\n".join(f"\t{b}" for b in self._bands)
+        r_str += "\n".join(f"\t{b}" for b in self.bands)
         if len(self.__stored_args__) != 0:
             r_str += "\nAnd the extra metadata:\n"
             for key, metadata in self.__stored_args__.items():
