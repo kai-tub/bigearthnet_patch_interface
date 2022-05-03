@@ -1,7 +1,7 @@
-import pytest
 import numpy as np
-from bigearthnet_patch_interface.band_interface import Band
+import pytest
 
+from bigearthnet_patch_interface.band_interface import Band
 from bigearthnet_patch_interface.s2_interface import *
 
 TEST_BANDS = {

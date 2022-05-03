@@ -1,5 +1,6 @@
-import numpy as np
 import pickle
+
+import numpy as np
 
 from .band_interface import *
 from .s1_interface import BigEarthNet_S1_Patch

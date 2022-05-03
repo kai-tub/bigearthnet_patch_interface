@@ -1,5 +1,6 @@
-import numpy as np
 from typing import Optional, Tuple
+
+import numpy as np
 from pydantic import BaseModel, validator
 
 __all__ = ["Band", "BenS2_10mBand", "BenS2_20mBand", "BenS2_60mBand", "BenS1_Band"]

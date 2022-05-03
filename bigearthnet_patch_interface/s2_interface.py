@@ -1,10 +1,10 @@
 import pickle
 from typing import Tuple
-from pydantic import validate_arguments, constr
 
 import natsort
 import numpy as np
-from pydantic.types import conint
+from pydantic import constr, validate_arguments
+
 from .band_interface import *
 
 __all__ = [
