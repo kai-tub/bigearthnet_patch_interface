@@ -1,5 +1,5 @@
-import pytest
 import numpy as np
+import pytest
 from pydantic import ValidationError
 
 from bigearthnet_patch_interface.band_interface import *

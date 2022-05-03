@@ -1,21 +1,42 @@
 [tool.poetry]
 name = "bigearthnet_patch_interface"
 version = "0.1.0"
-description = "BigEarthNet patch interface"
-authors = ["Kai Norman Clasen <kai.ce.tub@gmail.com>"]
-license = "Apache-2.0"
+description = "A simple interface class that includes all the relevant information about BigEarthNet patches."
+authors = ["Kai Norman Clasen <k.clasen@protonmail.com>"]
+license = "Apache Software License 2.0"
+readme = "README.md"
+homepage = "https://github.com/kai-tub/bigearthnet_patch_interface/"
+repository = "https://github.com/kai-tub/bigearthnet_patch_interface/"
+
+documentation = "https://github.com/kai-tub.github.io/bigearthnet_patch_interface"
+
+include = [
+    "LICENSE",
+]
 
 [tool.poetry.dependencies]
-python = "^3.7"
-pydantic = "^1.9.0"
+# TODO: Find a better way to set these values!
+python = "^3.8"
+pydantic = "^1.9"
 numpy = "^1.21"
-natsort = "^8.0.2"
+natsort = "^8"
 
 [tool.poetry.dev-dependencies]
-rasterio = "^1.2.10"
-pytest = "^6.2.5"
-black = "^21.12b0"
-isort = "^5.10.1"
+rasterio = "*"
+black = "*"
+isort = "*"
+pytest = "*"
+Sphinx = "^4.5"
+furo = "*"
+livereload = "*"
+sphinx-external-toc = "*"
+pre-commit = "*"
+myst-nb = "0.14"
+ipykernel = "*"
+linkify-it-py = "*"
+
+[tool.isort]
+profile = "black"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -1,10 +1,10 @@
-import pytest
 import numpy as np
-from bigearthnet_patch_interface.band_interface import Band
+import pytest
 
+from bigearthnet_patch_interface.band_interface import Band
+from bigearthnet_patch_interface.merged_interface import *
 from bigearthnet_patch_interface.s1_interface import *
 from bigearthnet_patch_interface.s2_interface import *
-from bigearthnet_patch_interface.merged_interface import *
 
 TEST_BANDS = {
     "bandVV": random_ben_S1_band(),

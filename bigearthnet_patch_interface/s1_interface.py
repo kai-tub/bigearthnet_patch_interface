@@ -1,9 +1,10 @@
 import pickle
-from pydantic import validate_arguments, constr
 from typing import Tuple
 
 import natsort
 import numpy as np
+from pydantic import constr, validate_arguments
+
 from .band_interface import *
 from .band_interface import BenS1_Band
 
