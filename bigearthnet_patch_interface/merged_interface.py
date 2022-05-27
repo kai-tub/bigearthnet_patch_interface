@@ -2,14 +2,15 @@ import pickle
 
 import numpy as np
 
+from bigearthnet_patch_interface.patch_interface import BigEarthNetPatch
+
 from .band_interface import *
+from .patch_interface import *
 from .s1_interface import BigEarthNet_S1_Patch
 from .s2_interface import BigEarthNet_S2_Patch
 
 
-# FUTURE: Write a base class that gives the
-# common skeleton to inherit from
-class BigEarthNet_S1_S2_Patch:
+class BigEarthNet_S1_S2_Patch(BigEarthNetPatch):
     def __init__(
         self,
         bandVH: np.ndarray,
@@ -44,12 +45,8 @@ class BigEarthNet_S1_S2_Patch:
             band12=band12,
         )
 
-        self.bands = [*self.s1_patch.bands, *self.s2_patch.bands]
-
-        # store extra kwargs
-        for k, v in kwargs.items():
-            setattr(self, k, v)
-        self.__stored_args__ = {**kwargs}
+        self._bands = [*self.s1_patch.bands, *self.s2_patch.bands]
+        super().store_kwargs_as_props(**kwargs)
 
     @classmethod
     def short_init(
@@ -91,40 +88,3 @@ class BigEarthNet_S1_S2_Patch:
             band12=B12,
             **kwargs,
         )
-
-    def dump(self, file):
-        return pickle.dump(self, file, protocol=4)
-
-    def dumps(self):
-        return pickle.dumps(self, protocol=4)
-
-    @staticmethod
-    def load(file) -> "BigEarthNet_S1_S2_Patch":
-        return pickle.load(file)
-
-    @staticmethod
-    def loads(data) -> "BigEarthNet_S1_S2_Patch":
-        return pickle.loads(data)
-
-    def get_band_by_name(self, name: str) -> Band:
-        band = None
-
-        for b in self.bands:
-            if b.name == name:
-                band = b
-        if band is None:
-            raise KeyError(f"{name} is not known")
-        return band
-
-    def get_band_data_by_name(self, name: str) -> np.ndarray:
-        band = self.get_band_by_name(name)
-        return band.data
-
-    def __repr__(self):
-        r_str = f"{self.__class__.__name__} with:\n"
-        r_str += "\n".join(f"\t{b}" for b in self.bands)
-        if len(self.__stored_args__) != 0:
-            r_str += "\nAnd the extra metadata:\n"
-            for key, metadata in self.__stored_args__.items():
-                r_str += f"\t{key}: {metadata}\n"
-        return r_str

@@ -5,8 +5,10 @@ import natsort
 import numpy as np
 from pydantic import constr, validate_arguments
 
+from bigearthnet_patch_interface.patch_interface import BigEarthNetPatch
+
 from .band_interface import *
-from .band_interface import BenS1_Band
+from .patch_interface import *
 
 __all__ = [
     "BigEarthNet_S1_Patch",
@@ -33,7 +35,7 @@ def random_ben_S1_band():
     return db_arr
 
 
-class BigEarthNet_S1_Patch:
+class BigEarthNet_S1_Patch(BigEarthNetPatch):
     def __init__(
         self,
         bandVH: np.ndarray,
@@ -48,18 +50,12 @@ class BigEarthNet_S1_Patch:
         self.bandVH = BenS1_Band(name="VH", data=bandVH)
         self.bandVV = BenS1_Band(name="VV", data=bandVV)
 
-        self.bands = [
+        self._bands = [
             self.bandVH,
             self.bandVV,
         ]
 
-        # guarantee that the bands are naturally sorted
-        # which is important for quick filtering operations!
-        self.bands = natsort.natsorted(self.bands, key=lambda band: band.name)
-        # store extra kwargs
-        for k, v in kwargs.items():
-            setattr(self, k, v)
-        self.__stored_args__ = {**kwargs}
+        super().store_kwargs_as_props(**kwargs)
 
     @classmethod
     def short_init(cls, VH: np.ndarray, VV: np.ndarray, **kwargs):
@@ -86,44 +82,23 @@ class BigEarthNet_S1_Patch:
         band = short_upper.lstrip("B")
         return f"band{band}"
 
-    def dump(self, file):
-        return pickle.dump(self, file, protocol=4)
-
-    def dumps(self):
-        return pickle.dumps(self, protocol=4)
-
-    @staticmethod
-    def load(file) -> "BigEarthNet_S1_Patch":
-        return pickle.load(file)
-
-    @staticmethod
-    def loads(data) -> "BigEarthNet_S1_Patch":
-        return pickle.loads(data)
-
-    def get_band_by_name(self, name: str) -> Band:
-        band = None
-        for b in self.bands:
-            if b.name == name:
-                band = b
-        if band is None:
-            raise KeyError(f"{name} is not known")
-        return band
-
-    def get_band_data_by_name(self, name: str) -> np.ndarray:
-        band = self.get_band_by_name(name)
-        return band.data
-
     def get_bands(self) -> Tuple[np.ndarray]:
+        """
+        Get  the _data_ of the S1 bands of the patch interface as a tuple.
+        The ordering is guaranteed to be naturally sorted:
+        VH, VV
+
+        Returns:
+            Tuple[np.ndarray]: Bands: VH, VV
+        """
         return tuple(b.data for b in self.bands)
 
     def get_stacked_bands(self) -> np.ndarray:
-        return np.stack(self.get_bands())
+        """
+        Quick way to get the bands already stacked.
+        Calls `np.stack(self.get_bands())`.
 
-    def __repr__(self):
-        r_str = f"{self.__class__.__name__} with:\n"
-        r_str += "\n".join(f"\t{b}" for b in self.bands)
-        if len(self.__stored_args__) != 0:
-            r_str += "\nAnd the extra metadata:\n"
-            for key, metadata in self.__stored_args__.items():
-                r_str += f"\t{key}: {metadata}\n"
-        return r_str
+        Returns:
+            np.ndarray: Stacked VH, VV bands
+        """
+        return np.stack(self.get_bands())

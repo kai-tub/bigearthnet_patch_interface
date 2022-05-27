@@ -15,14 +15,12 @@ include = [
 ]
 
 [tool.poetry.dependencies]
-# TODO: Find a better way to set these values!
-python = "^3.8"
+python = ">=3.8, <3.11"
 pydantic = "^1.9"
 numpy = "^1.21"
 natsort = "^8"
 
 [tool.poetry.dev-dependencies]
-# rasterio = "*"
 black = "*"
 isort = "*"
 pytest = "*"
@@ -31,7 +29,9 @@ furo = "*"
 livereload = "*"
 sphinx-external-toc = "*"
 pre-commit = "*"
-myst-nb = "0.14"
+myst-nb = "*"
+jupyter = "*"
+sphinx-autobuild = "*"
 ipykernel = "*"
 linkify-it-py = "*"
 rasterio = {version = "^1.2.10", allow-prereleases = true}

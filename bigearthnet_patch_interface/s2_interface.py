@@ -1,11 +1,10 @@
-import pickle
 from typing import Tuple
 
-import natsort
 import numpy as np
 from pydantic import constr, validate_arguments
 
 from .band_interface import *
+from .patch_interface import *
 
 __all__ = [
     "BigEarthNet_S2_Patch",
@@ -15,6 +14,7 @@ __all__ = [
     "s2_to_float32",
     "s2_to_float64",
 ]
+
 
 S2_DN_TO_REFLECTANCE = 10_000
 
@@ -38,7 +38,19 @@ def s2_to_float(arr) -> np.ndarray:
     return s2_to_float32(arr)
 
 
-def random_ben_S2_band(spatial_resoluion=10, original_dtype=False):
+def random_ben_S2_band(spatial_resoluion=10, original_dtype=False) -> np.ndarray:
+    """
+    Given a `spatial_resolution` generate a BigEarthNet patch either with
+    the original data type (uint16) or as a float32 dtype.
+
+    Args:
+        spatial_resoluion (int, optional): Spatial resolution (10, 20, or 60m). Defaults to 10.
+        original_dtype (bool, optional): Return uint16 dtype or float32 in [0, 1] range. Defaults to False.
+
+    Returns:
+        np.ndarray: Random BigEarthNet S2 band data
+    """
+
     BEN_PATCH_SIZE = 1200
     pixel_resolution = BEN_PATCH_SIZE // spatial_resoluion
     arr = np.random.randint(
@@ -49,7 +61,7 @@ def random_ben_S2_band(spatial_resoluion=10, original_dtype=False):
     return arr
 
 
-class BigEarthNet_S2_Patch:
+class BigEarthNet_S2_Patch(BigEarthNetPatch):
     def __init__(
         self,
         band01: np.ndarray,
@@ -65,11 +77,25 @@ class BigEarthNet_S2_Patch:
         band11: np.ndarray,
         band12: np.ndarray,
         **kwargs,
-    ):
+    ) -> "BigEarthNet_S2_Patch":
         """
         Original BigEarthNet-S2 patch class.
-        Will store any additional keyword arguments.
+        Will store any additional keyword arguments as attributes
+        and also in `__stored_args__`.
 
+        Args:
+            band01 (np.ndarray): 60m band
+            band02 (np.ndarray): 10m band
+            band03 (np.ndarray): 10m band
+            band04 (np.ndarray): 10m band
+            band05 (np.ndarray): 20m band
+            band06 (np.ndarray): 20m band
+            band07 (np.ndarray): 20m band
+            band08 (np.ndarray): 10m band
+            band8A (np.ndarray): 20m band
+            band09 (np.ndarray): 60m band
+            band11 (np.ndarray): 20m band
+            band12 (np.ndarray): 20m band
         """
         self.band01 = BenS2_60mBand(name="B01", data=band01)
         self.band02 = BenS2_10mBand(name="B02", data=band02)
@@ -84,7 +110,8 @@ class BigEarthNet_S2_Patch:
         self.band11 = BenS2_20mBand(name="B11", data=band11)
         self.band12 = BenS2_20mBand(name="B12", data=band12)
 
-        self.bands = [
+        # must be defined according to Interface!
+        self._bands = [
             self.band01,
             self.band02,
             self.band03,
@@ -98,14 +125,7 @@ class BigEarthNet_S2_Patch:
             self.band11,
             self.band12,
         ]
-
-        # guarantee that the bands are naturally sorted
-        # which is important for quick filtering operations!
-        self.bands = natsort.natsorted(self.bands, key=lambda band: band.name)
-        # store extra kwargs
-        for k, v in kwargs.items():
-            setattr(self, k, v)
-        self.__stored_args__ = {**kwargs}
+        super().store_kwargs_as_props(**kwargs)
 
     @staticmethod
     @validate_arguments
@@ -145,10 +165,10 @@ class BigEarthNet_S2_Patch:
         B11: np.ndarray,
         B12: np.ndarray,
         **kwargs,
-    ):
+    ) -> "BigEarthNet_S2_Patch":
         """
         Alternative `__init__` function.
-        Only difference is the encoded names.
+        Only differences are the encoded names.
         """
         return cls(
             band01=B01,
@@ -166,56 +186,68 @@ class BigEarthNet_S2_Patch:
             **kwargs,
         )
 
-    def dump(self, file):
-        return pickle.dump(self, file, protocol=4)
-
-    def dumps(self):
-        return pickle.dumps(self, protocol=4)
-
-    @staticmethod
-    def load(file) -> "BigEarthNet_S2_Patch":
-        return pickle.load(file)
-
-    @staticmethod
-    def loads(data) -> "BigEarthNet_S2_Patch":
-        return pickle.loads(data)
-
-    def get_band_by_name(self, name: str) -> Band:
-        band = None
-        for b in self.bands:
-            if b.name == name:
-                band = b
-        if band is None:
-            raise KeyError(f"{name} is not known")
-        return band
-
-    def get_band_data_by_name(self, name: str) -> np.ndarray:
-        band = self.get_band_by_name(name)
-        return band.data
-
     def get_10m_bands(self) -> Tuple[np.ndarray]:
-        return tuple(b.data for b in self.bands if b.spatial_resolution == 10)
+        """
+        Get the _data_ of the 10m bands of the patch interface as a tuple
+        The ordering is given by `self.bands`.
+        The ordering is guaranteed to be naturally sorted:
+        B02, B03, B04, B08
+
+        Returns:
+            Tuple[np.ndarray]: Bands: B02, B03, B04, B08
+        """
+        return super().get_natsorted_bands_by_spatial_res(spatial_resolution=10)
 
     def get_20m_bands(self) -> Tuple[np.ndarray]:
-        return tuple(b.data for b in self.bands if b.spatial_resolution == 20)
+        """
+        Get the _data_ of the 20m bands of the patch interface as a tuple
+        The ordering is given by `self.bands`.
+        The ordering is guaranteed to be naturally sorted:
+        B05, B06, B07, B8A, B11, B12
+
+        Returns:
+            Tuple[np.ndarray]: Bands: B05, B06, B07, B8A, B11, B12
+        """
+        return super().get_natsorted_bands_by_spatial_res(spatial_resolution=20)
 
     def get_60m_bands(self) -> Tuple[np.ndarray]:
-        return tuple(b.data for b in self.bands if b.spatial_resolution == 60)
+        """
+        Get  the _data_ of the 60m bands of the patch interface as a tuple
+        The ordering is given by `self.bands`.
+        The ordering is guaranteed to be naturally sorted:
+        B01, B09
+
+        Returns:
+            Tuple[np.ndarray]: Bands: B01, B09
+        """
+        return super().get_natsorted_bands_by_spatial_res(spatial_resolution=60)
 
     def get_stacked_10m_bands(self) -> np.ndarray:
+        """
+        Quick way to get the 10m bands already stacked.
+        Calls `np.stack(self.get_10m_bands())`.
+
+        Returns:
+            np.ndarray: Stacked 10m bands
+        """
         return np.stack(self.get_10m_bands())
 
     def get_stacked_20m_bands(self) -> np.ndarray:
+        """
+        Quick way to get the 20m bands already stacked.
+        Calls `np.stack(self.get_20m_bands())`.
+
+        Returns:
+            np.ndarray: Stacked 20m bands
+        """
         return np.stack(self.get_20m_bands())
 
     def get_stacked_60m_bands(self) -> np.ndarray:
-        return np.stack(self.get_60m_bands())
+        """
+        Quick way to get the 60m bands already stacked.
+        Calls `np.stack(self.get_60m_bands())`.
 
-    def __repr__(self):
-        r_str = f"{self.__class__.__name__} with:\n"
-        r_str += "\n".join(f"\t{b}" for b in self.bands)
-        if len(self.__stored_args__) != 0:
-            r_str += "\nAnd the extra metadata:\n"
-            for key, metadata in self.__stored_args__.items():
-                r_str += f"\t{key}: {metadata}\n"
-        return r_str
+        Returns:
+            np.ndarray: Stacked 60m bands
+        """
+        return np.stack(self.get_60m_bands())
