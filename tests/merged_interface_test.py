@@ -60,4 +60,30 @@ def test_metadata():
     assert ben_patch.labels == metadata["labels"]
 
 
+def test_repr():
+    ben_patch = BigEarthNet_S1_S2_Patch(**TEST_BANDS)
+    s = str(ben_patch)
+    assert "spatial resolution" in s
+
+
+def test_patches_nat_order():
+    ben_patch = BigEarthNet_S1_S2_Patch(**TEST_BANDS)
+    assert tuple(a.data for a in ben_patch.bands) == (
+        TEST_BANDS["band01"],
+        TEST_BANDS["band02"],
+        TEST_BANDS["band03"],
+        TEST_BANDS["band04"],
+        TEST_BANDS["band05"],
+        TEST_BANDS["band06"],
+        TEST_BANDS["band07"],
+        TEST_BANDS["band08"],
+        TEST_BANDS["band8A"],
+        TEST_BANDS["band09"],
+        TEST_BANDS["band11"],
+        TEST_BANDS["band12"],
+        TEST_BANDS["bandVH"],
+        TEST_BANDS["bandVV"],
+    )
+
+
 # FUTURE: Write tests that check the printed output

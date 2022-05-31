@@ -104,6 +104,17 @@ def test_invalid_band_by_name(invalid_name):
         ben_patch.get_band_data_by_name(invalid_name)
 
 
+def test_10_bands_order():
+    ben_patch = BigEarthNet_S2_Patch(**TEST_BANDS)
+    tup_10m_bands = ben_patch.get_10m_bands()
+    assert tuple(arr for arr in tup_10m_bands) == (
+        TEST_BANDS["band02"],
+        TEST_BANDS["band03"],
+        TEST_BANDS["band04"],
+        TEST_BANDS["band08"],
+    )
+
+
 def test_stacked_10m_bands():
     ben_patch = BigEarthNet_S2_Patch(**TEST_BANDS)
     stacked_10m_bands = ben_patch.get_stacked_10m_bands()
@@ -116,6 +127,28 @@ def test_stacked_20m_bands():
     stacked_20m_bands = ben_patch.get_stacked_20m_bands()
     assert stacked_20m_bands.shape == (6, 60, 60)
     assert (stacked_20m_bands[0] == TEST_BANDS["band05"]).all()
+
+
+def test_20_bands_order():
+    ben_patch = BigEarthNet_S2_Patch(**TEST_BANDS)
+    tup_20m_bands = ben_patch.get_20m_bands()
+    assert tuple(arr for arr in tup_20m_bands) == (
+        TEST_BANDS["band05"],
+        TEST_BANDS["band06"],
+        TEST_BANDS["band07"],
+        TEST_BANDS["band8A"],
+        TEST_BANDS["band11"],
+        TEST_BANDS["band12"],
+    )
+
+
+def test_60_bands_order():
+    ben_patch = BigEarthNet_S2_Patch(**TEST_BANDS)
+    tup_60m_bands = ben_patch.get_60m_bands()
+    assert tuple(arr for arr in tup_60m_bands) == (
+        TEST_BANDS["band01"],
+        TEST_BANDS["band09"],
+    )
 
 
 def test_stacked_60m_bands():

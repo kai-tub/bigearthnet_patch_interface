@@ -1,16 +1,18 @@
-from typing import Optional, Tuple
+from typing import Tuple
 
 import numpy as np
-from pydantic import BaseModel, validator
+from pydantic import BaseModel, Field, validator
 
 __all__ = ["Band", "BenS2_10mBand", "BenS2_20mBand", "BenS2_60mBand", "BenS1_Band"]
 
 
 class Band(BaseModel):
-    name: str
-    spatial_resolution: int
-    data_shape: Tuple[int, int]
-    data: np.ndarray
+    name: str = Field(..., description="The offical name of the band")
+    spatial_resolution: int = Field(..., description="The spatial resolution in meters")
+    data_shape: Tuple[int, int] = Field(
+        ..., description="The expected data shape for the input patch"
+    )
+    data: np.ndarray = Field(..., description="The actual band data as a numpy array")
 
     @validator("data")
     def _validate_dimension(cls, v, values):
