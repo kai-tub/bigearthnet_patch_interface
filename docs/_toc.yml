@@ -1,5 +1,6 @@
 root: intro
 entries:
+  - file: installation
   - file: api
     subtrees:
       - entries:
