@@ -2,9 +2,12 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="#" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="BigEarthNet-S1 Patch-Interface" href="api_s1.html" /><link rel="prev" title="BigEarthNet Patch Interface" href="intro.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/><title>Search - BigEarthNet Patch Interface  documentation</title><link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+        <title>API and Usage - BigEarthNet Patch Interface documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
@@ -148,14 +151,14 @@
   
   <span class="sidebar-brand-text">BigEarthNet Patch Interface  documentation</span>
   
-</a><form class="sidebar-search-container" method="get" action="#" role="search">
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API and Usage</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+  <ul class="current">
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">API and Usage</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="api_s1.html">BigEarthNet-S1 Patch-Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_s2.html">BigEarthNet-S2 Patch-Interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api_merged.html">BigEarthNet-S1-S2 Merged Patch Interface</a></li>
@@ -194,25 +197,69 @@
           </label>
         </div>
         <article role="main">
-          
-<noscript>
-<div class="admonition error">
-  <p class="admonition-title">Error</p>
-  <p>
-    Please activate JavaScript to enable the search functionality.
-  </p>
+          <section class="tex2jax_ignore mathjax_ignore" id="api-and-usage">
+<h1>API and Usage<a class="headerlink" href="#api-and-usage" title="Permalink to this headline">#</a></h1>
+<p>As of now, there are three different patch interface classes:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_s1.html#api-s1-header"><span class="std std-ref">BigEarthNet-S1 Patch-Interface</span></a></p></li>
+<li><p><a class="reference internal" href="api_s2.html#api-s2-header"><span class="std std-ref">BigEarthNet-S2 Patch-Interface</span></a></p></li>
+<li><p><a class="reference internal" href="api_merged.html#api-merged-header"><span class="std std-ref">BigEarthNet-S1-S2 Merged Patch Interface</span></a></p></li>
+</ul>
+<p>They all inherit from the same abstract base class and have very similar implementations.
+If you would like to understand more about the implementation, check out the <a class="reference internal" href="05_internal.html"><span class="doc std std-doc">Internals</span></a> document.</p>
+<p>The most notable features are:</p>
+<ul class="simple">
+<li><p>The interface is very strict during the initialization</p>
+<ul>
+<li><p>The data must have the correct shape (given by the Band type)</p></li>
+<li><p>The <em>official</em> name must be given</p></li>
+</ul>
+</li>
+<li><p>If the bands are accessed, they are guaranteed to have a deterministic ordering</p>
+<ul>
+<li><p>The bands are naturally sorted (<code class="docutils literal notranslate"><span class="pre">natsorted</span></code>)</p></li>
+</ul>
+</li>
+<li><p>Extra metadata can be provided as key-word arguments, which will be stored as properties of the instance</p></li>
+<li><p>The data is internally stored as numpy arrays to allow framework-agnostic access</p></li>
+<li><p>Get stacked band data as a numpy array by calling <code class="docutils literal notranslate"><span class="pre">get_stacked_X_bands</span></code> methods</p></li>
+<li><p>The classes provide a quick interface to serialize and deserialize themselves via <code class="docutils literal notranslate"><span class="pre">pickle=v4</span></code>.</p>
+<ul>
+<li><p>Useful for encoding/decoding the entire class as LMDB targets (see <a class="reference external" href="https://docs.kai-tub.tech/bigearthnet_encoder/">BigEarthNet Encoder</a> for details)</p></li>
+</ul>
+</li>
+</ul>
+<p>The <a class="reference internal" href="api_merged.html#api-merged-header"><span class="std std-ref">BigEarthNet-S1-S2 Merged Patch Interface</span></a> is a simple composition of the other Sentinel patch interfaces.
+This interface was required to create a single LMDB file that contains both patches for a single key to maximize the read-performance.</p>
+<div class="toctree-wrapper compound">
 </div>
-</noscript>
-
-<div id="search-results"></div>
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="api_s1.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">BigEarthNet-S1 Patch-Interface</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="intro.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -254,8 +301,5 @@
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    
-<script src="_static/searchtools.js"></script>
-<script src="_static/language_data.js"></script>
-<script src="searchindex.js"></script></body>
+    </body>
 </html>

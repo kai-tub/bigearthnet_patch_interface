@@ -3,14 +3,15 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="BigEarthNet Patch Interface" href="intro.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="BigEarthNet-S1-S2 Merged Patch Interface" href="api_merged.html" />
 
     <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
-        <title>Shortcomings - BigEarthNet Patch Interface documentation</title>
+        <title>Internals - BigEarthNet Patch Interface documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -157,7 +158,13 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Shortcomings</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API and Usage</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_s1.html">BigEarthNet-S1 Patch-Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_s2.html">BigEarthNet-S2 Patch-Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_merged.html">BigEarthNet-S1-S2 Merged Patch Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Internals</a></li>
 </ul>
 
 </div>
@@ -190,12 +197,142 @@
           </label>
         </div>
         <article role="main">
-          <section class="tex2jax_ignore mathjax_ignore" id="shortcomings">
-<h1>Shortcomings<a class="headerlink" href="#shortcomings" title="Permalink to this headline">#</a></h1>
-<ul class="simple">
-<li><p>Requires loading of irrelevant bands</p></li>
-<li><p>Currently enforcing original spatial resolution</p></li>
+          <section class="tex2jax_ignore mathjax_ignore" id="internals">
+<h1>Internals<a class="headerlink" href="#internals" title="Permalink to this headline">#</a></h1>
+<p>Each patch interface class contains <a class="reference internal" href="#bigearthnet_patch_interface.band_interface.Band" title="bigearthnet_patch_interface.band_interface.Band"><code class="xref py py-class docutils literal notranslate"><span class="pre">Band</span></code></a> data.
+The <a class="reference internal" href="#bigearthnet_patch_interface.band_interface.Band" title="bigearthnet_patch_interface.band_interface.Band"><code class="xref py py-class docutils literal notranslate"><span class="pre">Band</span></code></a> interface class is a simple base class that guarantess that the provided data is in the expected shape and has an associated name:</p>
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.band_interface.Band">
+<em class="property"><span class="pre">pydantic</span> <span class="pre">model</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bigearthnet_patch_interface.band_interface.</span></span><span class="sig-name descname"><span class="pre">Band</span></span><a class="headerlink" href="#bigearthnet_patch_interface.band_interface.Band" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Config</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arbitrary_types_allowed</strong>: <em>bool = True</em></p></li>
 </ul>
+</dd>
+<dt class="field-even">Fields</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#bigearthnet_patch_interface.band_interface.Band.data" title="bigearthnet_patch_interface.band_interface.Band.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span> <span class="pre">(numpy.ndarray)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#bigearthnet_patch_interface.band_interface.Band.data_shape" title="bigearthnet_patch_interface.band_interface.Band.data_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data_shape</span> <span class="pre">(Tuple[int,</span> <span class="pre">int])</span></code></a></p></li>
+<li><p><a class="reference internal" href="#bigearthnet_patch_interface.band_interface.Band.name" title="bigearthnet_patch_interface.band_interface.Band.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span> <span class="pre">(str)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#bigearthnet_patch_interface.band_interface.Band.spatial_resolution" title="bigearthnet_patch_interface.band_interface.Band.spatial_resolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spatial_resolution</span> <span class="pre">(int)</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Validators</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_validate_dimension</span></code> » <a class="reference internal" href="#bigearthnet_patch_interface.band_interface.Band.data" title="bigearthnet_patch_interface.band_interface.Band.data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.band_interface.Band.data">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#bigearthnet_patch_interface.band_interface.Band.data" title="Permalink to this definition">#</a></dt>
+<dd><p>The actual band data as a numpy array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Validated by</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_validate_dimension</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.band_interface.Band.data_shape">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#bigearthnet_patch_interface.band_interface.Band.data_shape" title="Permalink to this definition">#</a></dt>
+<dd><p>The expected data shape for the input patch</p>
+</dd></dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.band_interface.Band.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#bigearthnet_patch_interface.band_interface.Band.name" title="Permalink to this definition">#</a></dt>
+<dd><p>The offical name of the band</p>
+</dd></dl>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.band_interface.Band.spatial_resolution">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">spatial_resolution</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#bigearthnet_patch_interface.band_interface.Band.spatial_resolution" title="Permalink to this definition">#</a></dt>
+<dd><p>The spatial resolution in meters</p>
+</dd></dl>
+</dd></dl>
+<p>The satellite specific bands are then used inside of a class that inherits from <a class="reference internal" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch" title="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigEarthNetPatch</span></code></a>.
+This class provides common functions that are used for all patches.
+To guarantee deterministic ordering, the bands are always naturally sorted by their name.
+To add flexibility the extra key-word arguments are stored as properties inside of each instance.
+The recommended approach is to inherit from this class and to call <code class="docutils literal notranslate"><span class="pre">super().__init__</span></code> to ensure that everything is compatible.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bigearthnet_patch_interface.patch_interface.</span></span><span class="sig-name descname"><span class="pre">BigEarthNetPatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">bigearthnet_patch_interface.patch_interface.TBand</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch" title="Permalink to this definition">#</a></dt>
+<dd><p>A general BigEarthNet Patch interface.
+It provides commonly used functions for S1/S2 patches.
+It requires each instance to overwrite the <cite>_bands</cite> class variable,
+as this is used to return the naturally sorted <cite>bands</cite> property.
+Ideally, the <cite>__init__</cite> method should be called with <cite>bands</cite> set.</p>
+<p>The other key-word arguments are set as properties.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.bands">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bands</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">bigearthnet_patch_interface.patch_interface.TBand</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.bands" title="Permalink to this definition">#</a></dt>
+<dd><p>Get a naturally sorted list of bands.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>List[Band]: Naturally sorted list of bands</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.dump">
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.dump" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the instance to a <cite>pickle</cite> binary stream and write to <cite>file</cite>.
+Will call <cite>pickle.dump</cite> with <cite>protocol=4</cite> internally.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.dumps">
+<span class="sig-name descname"><span class="pre">dumps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.dumps" title="Permalink to this definition">#</a></dt>
+<dd><p>Convert the instance to a <cite>pickle</cite> binary stream.
+Will call <cite>pickle.dump</cite> with <cite>protocol=4</cite> internally.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.get_band_by_name">
+<span class="sig-name descname"><span class="pre">get_band_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#bigearthnet_patch_interface.band_interface.Band" title="bigearthnet_patch_interface.band_interface.Band"><span class="pre">bigearthnet_patch_interface.band_interface.Band</span></a></span></span><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.get_band_by_name" title="Permalink to this definition">#</a></dt>
+<dd><p>Access a specific band by looking up the name.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>name (str): Name of the band (B01, B8A, B10, etc.)</p>
+</dd>
+<dt>Raises:</dt><dd><p>KeyError: If name cannot be found.</p>
+</dd>
+<dt>Returns:</dt><dd><p>Band: Selected band.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.get_band_data_by_name">
+<span class="sig-name descname"><span class="pre">get_band_data_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.get_band_data_by_name" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the numpy array of the selected band by looking up the name.
+Calls <cite>get_band_by_name</cite> under the hood.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><p>np.ndarray: Band data</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.get_natsorted_bands_by_spatial_res">
+<span class="sig-name descname"><span class="pre">get_natsorted_bands_by_spatial_res</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spatial_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.get_natsorted_bands_by_spatial_res" title="Permalink to this definition">#</a></dt>
+<dd><p>Get naturally sorted bands filtered by the
+given spatial resolution</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>spatial_resolution (int): Spatial resolution in meters</p>
+</dd>
+<dt>Returns:</dt><dd><p>Tuple[np.ndarray, …]: Bands as Tuples</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.load">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bigearthnet_patch_interface.patch_interface.TPatch</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.load" title="Permalink to this definition">#</a></dt>
+<dd><p>Calls <cite>pickle.load</cite> under the hood.</p>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.loads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bigearthnet_patch_interface.patch_interface.TPatch</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch.loads" title="Permalink to this definition">#</a></dt>
+<dd><p>Calls <cite>pickle.loads</cite> under the hood.</p>
+</dd></dl>
+</dd></dl>
 </section>
 
         </article>
@@ -204,14 +341,14 @@
         
         <div class="related-pages">
           
-          <a class="prev-page" href="intro.html">
+          <a class="prev-page" href="api_merged.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Home</div>
+                <div class="title">BigEarthNet-S1-S2 Merged Patch Interface</div>
                 
               </div>
             </a>
