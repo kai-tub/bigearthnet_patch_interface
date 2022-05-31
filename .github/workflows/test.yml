@@ -32,13 +32,14 @@ jobs:
       - name: Install dependencies
         run: |
           just install
-      - name: Test mypy
-        run: |
-          mypy bigearthnet_patch_interface
       - name: Check precommit
         run: |
           source $VENV
           pre-commit run --all-files
+      - name: Test mypy
+        run: |
+          source $VENV
+          mypy bigearthnet_patch_interface
       - name: Run tests from within poetry
         run: |
           source $VENV
