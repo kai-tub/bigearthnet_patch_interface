@@ -37,6 +37,7 @@ linkify-it-py = "*"
 rasterio = {version = "^1.2.10", allow-prereleases = true}
 mypy = "*"
 autodoc-pydantic = "^1.7.1"
+sphinx_design = "^0.1.0"
 
 [tool.mypy]
 exclude = ["tests"]
