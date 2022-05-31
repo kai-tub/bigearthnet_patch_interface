@@ -3,7 +3,7 @@ from typing import Tuple
 
 import natsort
 import numpy as np
-from pydantic import constr, validate_arguments
+from pydantic import Field, validate_arguments
 
 from bigearthnet_patch_interface.patch_interface import BigEarthNetPatch
 
@@ -41,7 +41,7 @@ class BigEarthNet_S1_Patch(BigEarthNetPatch):
         bandVH: np.ndarray,
         bandVV: np.ndarray,
         **kwargs,
-    ):
+    ) -> None:
         """
         Original BigEarthNet-S1 patch class.
         Will store any additional keyword arguments.
@@ -50,12 +50,12 @@ class BigEarthNet_S1_Patch(BigEarthNetPatch):
         self.bandVH = BenS1_Band(name="VH", data=bandVH)
         self.bandVV = BenS1_Band(name="VV", data=bandVV)
 
-        self._bands = [
+        bands = [
             self.bandVH,
             self.bandVV,
         ]
 
-        super().store_kwargs_as_props(**kwargs)
+        super().__init__(bands=bands, **kwargs)
 
     @classmethod
     def short_init(cls, VH: np.ndarray, VV: np.ndarray, **kwargs):
@@ -68,7 +68,7 @@ class BigEarthNet_S1_Patch(BigEarthNetPatch):
     @staticmethod
     @validate_arguments
     def short_to_long_band_name(
-        short_band_name: constr(min_length=1, max_length=4)
+        short_band_name: str = Field(..., min_length=1, max_length=4)
     ) -> str:
         """
         Convert a short input band name, such as VV, Vv, or vh
@@ -82,7 +82,7 @@ class BigEarthNet_S1_Patch(BigEarthNetPatch):
         band = short_upper.lstrip("B")
         return f"band{band}"
 
-    def get_bands(self) -> Tuple[np.ndarray]:
+    def get_bands(self) -> Tuple[np.ndarray, ...]:
         """
         Get  the _data_ of the S1 bands of the patch interface as a tuple.
         The ordering is guaranteed to be naturally sorted:

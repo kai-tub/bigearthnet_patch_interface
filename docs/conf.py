@@ -40,7 +40,11 @@ extensions = [
     # "sphinx_comments",
     # "sphinx.ext.todo",
     # "sphinxcontrib.bibtex",
+    "sphinxcontrib.autodoc_pydantic",
 ]
+autodoc_pydantic_model_show_json = False
+autodoc_pydantic_settings_show_json = False
+
 external_toc_path = "_toc.yml"
 
 myst_enable_extensions = [
@@ -63,6 +67,10 @@ source_suffix = {".ipynb": "myst-nb", ".md": "myst-nb"}
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "jupyter_execute"]
+
+myst_substitutions = {
+    "BenEncoder": "[BigEarthNet Encoder](https://docs.kai-tub.tech/bigearthnet_encoder/)",
+}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

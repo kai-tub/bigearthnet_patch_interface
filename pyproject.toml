@@ -35,6 +35,13 @@ sphinx-autobuild = "*"
 ipykernel = "*"
 linkify-it-py = "*"
 rasterio = {version = "^1.2.10", allow-prereleases = true}
+mypy = "*"
+autodoc-pydantic = "^1.7.1"
+
+[tool.mypy]
+exclude = ["tests"]
+# common plugins:
+# plugins = "numpy.typing.mypy_plugin"ypy = "^0.960"
 
 [tool.isort]
 profile = "black"

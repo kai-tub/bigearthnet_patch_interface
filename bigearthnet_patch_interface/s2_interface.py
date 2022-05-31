@@ -1,7 +1,8 @@
 from typing import Tuple
 
 import numpy as np
-from pydantic import constr, validate_arguments
+import numpy.typing as npt
+from pydantic import Field, validate_arguments
 
 from .band_interface import *
 from .patch_interface import *
@@ -23,22 +24,22 @@ def _s2_to_float(arr):
     return arr / S2_DN_TO_REFLECTANCE
 
 
-def s2_to_float64(arr) -> np.ndarray:
+def s2_to_float64(arr) -> np.float64:
     return np.float64(_s2_to_float(arr))
 
 
-def s2_to_float32(arr) -> np.ndarray:
+def s2_to_float32(arr) -> np.float32:
     return np.float32(_s2_to_float(arr))
 
 
-def s2_to_float(arr) -> np.ndarray:
+def s2_to_float(arr) -> np.float32:
     """
     Convert to numpy float
     """
     return s2_to_float32(arr)
 
 
-def random_ben_S2_band(spatial_resoluion=10, original_dtype=False) -> np.ndarray:
+def random_ben_S2_band(spatial_resoluion=10, original_dtype=False) -> npt.DTypeLike:
     """
     Given a `spatial_resolution` generate a BigEarthNet patch either with
     the original data type (uint16) or as a float32 dtype.
@@ -77,7 +78,7 @@ class BigEarthNet_S2_Patch(BigEarthNetPatch):
         band11: np.ndarray,
         band12: np.ndarray,
         **kwargs,
-    ) -> "BigEarthNet_S2_Patch":
+    ) -> None:
         """
         Original BigEarthNet-S2 patch class.
         Will store any additional keyword arguments as attributes
@@ -110,8 +111,7 @@ class BigEarthNet_S2_Patch(BigEarthNetPatch):
         self.band11 = BenS2_20mBand(name="B11", data=band11)
         self.band12 = BenS2_20mBand(name="B12", data=band12)
 
-        # must be defined according to Interface!
-        self._bands = [
+        bands = [
             self.band01,
             self.band02,
             self.band03,
@@ -125,12 +125,12 @@ class BigEarthNet_S2_Patch(BigEarthNetPatch):
             self.band11,
             self.band12,
         ]
-        super().store_kwargs_as_props(**kwargs)
+        super().__init__(bands=bands, **kwargs)
 
     @staticmethod
     @validate_arguments
     def short_to_long_band_name(
-        short_band_name: constr(min_length=1, max_length=4)
+        short_band_name: str = Field(..., min_length=1, max_length=4)
     ) -> str:
         """
         Convert a short input band name, such as B01, 01, 1 or B1
@@ -142,8 +142,10 @@ class BigEarthNet_S2_Patch(BigEarthNetPatch):
         short_upper = short_band_name.upper()
         band = short_upper.lstrip("B")
         if band.endswith("A"):
-            num = band.rstrip("A")
-            band = f"{int(num)}A"
+            num = int(band.rstrip("A"))
+            # only Band8A should have an A at the end!
+            # for compability, it should _not_ include 08A
+            band = f"{num:01d}A"
         else:
             num = int(band)
             band = f"{num:02d}"
@@ -186,7 +188,7 @@ class BigEarthNet_S2_Patch(BigEarthNetPatch):
             **kwargs,
         )
 
-    def get_10m_bands(self) -> Tuple[np.ndarray]:
+    def get_10m_bands(self) -> Tuple[np.ndarray, ...]:
         """
         Get the _data_ of the 10m bands of the patch interface as a tuple
         The ordering is given by `self.bands`.
@@ -198,7 +200,7 @@ class BigEarthNet_S2_Patch(BigEarthNetPatch):
         """
         return super().get_natsorted_bands_by_spatial_res(spatial_resolution=10)
 
-    def get_20m_bands(self) -> Tuple[np.ndarray]:
+    def get_20m_bands(self) -> Tuple[np.ndarray, ...]:
         """
         Get the _data_ of the 20m bands of the patch interface as a tuple
         The ordering is given by `self.bands`.
@@ -210,7 +212,7 @@ class BigEarthNet_S2_Patch(BigEarthNetPatch):
         """
         return super().get_natsorted_bands_by_spatial_res(spatial_resolution=20)
 
-    def get_60m_bands(self) -> Tuple[np.ndarray]:
+    def get_60m_bands(self) -> Tuple[np.ndarray, ...]:
         """
         Get  the _data_ of the 60m bands of the patch interface as a tuple
         The ordering is given by `self.bands`.

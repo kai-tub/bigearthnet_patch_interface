@@ -1,15 +1,17 @@
 import pickle
-from abc import ABC, abstractmethod
-from typing import List, Tuple, TypeVar
+from abc import ABC
+from typing import Optional, Sequence, Tuple, TypeVar
 
 import natsort
 import numpy as np
 
 from .band_interface import *
 
-TPatch = TypeVar("TPatch", bound="BigEarthNetPatch")
-
 __all__ = ["BigEarthNetPatch"]
+
+TPatch = TypeVar("TPatch", bound="BigEarthNetPatch")
+TBand = TypeVar("TBand", bound=Band)
+Bands = Sequence[TBand]
 
 
 class BigEarthNetPatch(ABC):
@@ -18,15 +20,30 @@ class BigEarthNetPatch(ABC):
     It provides commonly used functions for S1/S2 patches.
     It requires each instance to overwrite the `_bands` class variable,
     as this is used to return the naturally sorted `bands` property.
+    Ideally, the `__init__` method should be called with `bands` set.
+
+    The other key-word arguments are set as properties.
     """
 
-    _bands = NotImplemented
+    _bands: Optional[Bands] = None
+
+    def __init__(self, bands: Bands, **kwargs) -> None:
+        self._bands = bands
+        self.store_kwargs_as_props(**kwargs)
 
     @property
-    def bands(self) -> List[Band]:
-        _bands: List[Band] = self._bands
-        if _bands == NotImplemented:
-            raise NotImplementedError("You must overwrite the `_bands` class variable!")
+    def bands(self) -> Bands:
+        """
+        Get a naturally sorted list of bands.
+
+        Returns:
+            List[Band]: Naturally sorted list of bands
+        """
+        _bands = self._bands
+        if _bands is None:
+            raise NotImplementedError(
+                "You must overwrite the `_bands` class variable! Use super().__init__!"
+            )
         return natsort.natsorted(_bands, key=lambda band: band.name)
 
     def store_kwargs_as_props(self, **kwargs) -> None:
@@ -68,7 +85,17 @@ class BigEarthNetPatch(ABC):
 
     def get_natsorted_bands_by_spatial_res(
         self, spatial_resolution: int
-    ) -> Tuple[np.ndarray]:
+    ) -> Tuple[np.ndarray, ...]:
+        """
+        Get naturally sorted bands filtered by the
+        given spatial resolution
+
+        Args:
+            spatial_resolution (int): Spatial resolution in meters
+
+        Returns:
+            Tuple[np.ndarray, ...]: Bands as Tuples
+        """
         return tuple(
             b.data for b in self.bands if b.spatial_resolution == spatial_resolution
         )
@@ -102,6 +129,14 @@ class BigEarthNetPatch(ABC):
         return pickle.loads(data)
 
     def __repr__(self) -> str:
+        """
+        Nice representation of current patch interface.
+        Print the name of the class with the loaded bands
+        and extra metadata.
+
+        Returns:
+            str: Formatted string
+        """
         r_str = f"{self.__class__.__name__} with:\n"
         r_str += "\n".join(f"\t{b}" for b in self.bands)
         if len(self.__stored_args__) != 0:
