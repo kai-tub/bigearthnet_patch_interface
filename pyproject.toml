@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bigearthnet_patch_interface"
-version = "0.1.0"
+version = "0.1.1"
 description = "A simple interface class that includes all the relevant information about BigEarthNet patches."
 authors = ["Kai Norman Clasen <k.clasen@protonmail.com>"]
 license = "Apache Software License 2.0"
