@@ -1,7 +1,7 @@
 # BigEarthNet Patch Interface
 > A simple interface class that includes all the relevant information about BigEarthNet patches.
 
-[![Tests](https://img.shields.io/github/workflow/status/kai-tub/bigearthnet-patch-interface/CI?color=dark-green&label=%20Tests)](https://github.com/kai-tub/bigearthnet_patch_interface//actions/workflows/main.yml)
+[![Tests](https://img.shields.io/github/workflow/status/kai-tub/bigearthnet_patch_interface/CI?color=dark-green&label=%20Tests)](https://github.com/kai-tub/bigearthnet_patch_interface//actions/workflows/main.yml)
 [![MyPy Type Checker](https://img.shields.io/badge/%20type_checker-mypy-%231674b1?style=flat&color=dark-green)](http://mypy-lang.org/)
 [![License](https://img.shields.io/pypi/l/bigearthnet-patch-interface?color=dark-green)](https://github.com/kai-tub/bigearthnet_patch_interface//blob/main/LICENSE)
 [![Python Versions](https://img.shields.io/pypi/pyversions/bigearthnet-patch-interface)](https://pypi.org/project/bigearthnet-patch-interface)
