@@ -5,14 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installation" href="installation.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.09.29"/>
         <title>BigEarthNet Patch Interface documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -167,6 +164,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="05_internal.html">Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general/dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general/code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general/license.html">License</a></li>
 </ul>
 
 </div>
@@ -185,7 +185,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -200,17 +202,18 @@
         </div>
         <article role="main">
           <section class="tex2jax_ignore mathjax_ignore" id="bigearthnet-patch-interface">
-<h1>BigEarthNet Patch Interface<a class="headerlink" href="#bigearthnet-patch-interface" title="Permalink to this headline">#</a></h1>
+<span id="intro"></span><h1>BigEarthNet Patch Interface<a class="headerlink" href="#bigearthnet-patch-interface" title="Permalink to this headline">#</a></h1>
 <blockquote>
 <div><p>A simple interface class that includes all the relevant information about BigEarthNet patches.</p>
 </div></blockquote>
-<p><a class="reference external" href="https://github.com/kai-tub/bigearthnet_patch_interface/actions/workflows/main.yml"><img alt="Tests" src="https://img.shields.io/github/workflow/status/kai-tub/bigearthnet_patch_interface/CI?color=dark-green&amp;label=%20Tests"/></a>
-<a class="reference external" href="https://github.com/kai-tub/bigearthnet_patch_interface/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/bigearthnet_patch_interface?color=dark-green"/></a>
-<a class="reference external" href="https://pypi.org/project/bigearthnet_patch_interface"><img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/bigearthnet_patch_interface"/></a>
-<a class="reference external" href="https://pypi.org/project/bigearthnet-patch-interface/"><img alt="PyPI version" src="https://badge.fury.io/py/bigearthnet-patch-interface.svg"/></a>
-<a class="reference external" href="https://github.com/intuit/auto"><img alt="Auto Release" src="https://img.shields.io/badge/release-auto.svg?colorA=888888&amp;colorB=9B065A&amp;label=auto&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACzElEQVR4AYXBW2iVBQAA4O+/nLlLO9NM7JSXasko2ASZMaKyhRKEDH2ohxHVWy6EiIiiLOgiZG9CtdgG0VNQoJEXRogVgZYylI1skiKVITPTTtnv3M7+v8UvnG3M+r7APLIRxStn69qzqeBBrMYyBDiL4SD0VeFmRwtrkrI5IjP0F7rjzrSjvbTqwubiLZffySrhRrSghBJa8EBYY0NyLJt8bDBOtzbEY72TldQ1kRm6otana8JK3/kzN/3V/NBPU6HsNnNlZAz/ukOalb0RBJKeQnykd7LiX5Fp/YXuQlfUuhXbg8Di5GL9jbXFq/tLa86PpxPhAPrwCYaiorS8L/uuPJh1hZFbcR8mewrx0d7JShr3F7pNW4vX0GRakKWVk7taDq7uPvFWw8YkMcPVb+vfvfRZ1i7zqFwjtmFouL72y6C/0L0Ie3GvaQXRyYVB3YZNE32/+A/D9bVLcRB3yw3hkRCdaDUtFl6Ykr20aaLvKoqIXUdbMj6GFzAmdxfWx9iIRrkDr1f27cFONGMUo/gRI/jNbIMYxJOoR1cY0OGaVPb5z9mlKbyJP/EsdmIXvsFmM7Ql42nEblX3xI1BbYbTkXCqRnxUbgzPo4T7sQBNeBG7zbAiDI8nWfZDhQWYCG4PFr+HMBQ6l5VPJybeRyJXwsdYJ/cRnlJV0yB4ZlUYtFQIkMZnst8fRrPcKezHCblz2IInMIkPzbbyb9mW42nWInc2xmE0y61AJ06oGsXL5rcOK1UdCbEXiVwNXsEy/6+EbaiVG8eeEAfxvaoSBnCH61uOD7BS1Ul8ESHBKWxCrdyd6EYNKihgEVrwOAbQruoytuBYIFfAc3gVN6iawhjKyNCEpYhVJXgbOzARyaU4hCtYizq5EI1YgiUoIlT1B7ZjByqmRWYbwtdYjoWoN7+LOIQefIqKawLzK6ID69GGpQgwhhEcwGGUzfEPAiPqsCXadFsAAAAASUVORK5CYII="/></a>
-<a class="reference external" href="https://anaconda.org/conda-forge/bigearthnet-patch-interface"><img alt="Conda Version" src="https://img.shields.io/conda/vn/conda-forge/bigearthnet-patch-interface?color=dark-green"/></a></p>
-<!-- [![Conda Version](https://img.shields.io/conda/vn/conda-forge/bigearthnet-patch-interface?color=dark-green)](https://anaconda.org/conda-forge/bigearthnet-patch-interface) -->
+<p><a class="reference external" href="https://github.com/kai-tub/bigearthnet_patch_interface//actions/workflows/main.yml"><img alt="Tests" src="https://img.shields.io/github/workflow/status/kai-tub/bigearthnet-patch-interface/CI?color=dark-green&amp;label=%20Tests" /></a>
+<a class="reference external" href="http://mypy-lang.org/"><img alt="MyPy Type Checker" src="https://img.shields.io/badge/%20type_checker-mypy-%231674b1?style=flat&amp;color=dark-green" /></a>
+<a class="reference external" href="https://github.com/kai-tub/bigearthnet_patch_interface//blob/main/LICENSE"><img alt="License" src="https://img.shields.io/pypi/l/bigearthnet-patch-interface?color=dark-green" /></a>
+<a class="reference external" href="https://pypi.org/project/bigearthnet-patch-interface"><img alt="Python Versions" src="https://img.shields.io/pypi/pyversions/bigearthnet-patch-interface" /></a>
+<a class="reference external" href="https://pypi.org/project/bigearthnet-patch-interface"><img alt="PyPI version" src="https://img.shields.io/pypi/v/bigearthnet-patch-interface" /></a>
+<a class="reference external" href="https://anaconda.org/conda-forge/bigearthnet-patch-interface"><img alt="Conda Version" src="https://img.shields.io/conda/vn/conda-forge/bigearthnet-patch-interface?color=dark-green" /></a>
+<a class="reference external" href="https://pdm.fming.dev"><img alt="pdm-managed" src="https://img.shields.io/badge/pdm-managed-blueviolet" /></a>
+<a class="reference external" href="https://github.com/intuit/auto"><img alt="Auto Release" src="https://img.shields.io/badge/release-auto.svg?colorA=888888&amp;colorB=blueviolet&amp;label=auto&amp;logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAACzElEQVR4AYXBW2iVBQAA4O+/nLlLO9NM7JSXasko2ASZMaKyhRKEDH2ohxHVWy6EiIiiLOgiZG9CtdgG0VNQoJEXRogVgZYylI1skiKVITPTTtnv3M7+v8UvnG3M+r7APLIRxStn69qzqeBBrMYyBDiL4SD0VeFmRwtrkrI5IjP0F7rjzrSjvbTqwubiLZffySrhRrSghBJa8EBYY0NyLJt8bDBOtzbEY72TldQ1kRm6otana8JK3/kzN/3V/NBPU6HsNnNlZAz/ukOalb0RBJKeQnykd7LiX5Fp/YXuQlfUuhXbg8Di5GL9jbXFq/tLa86PpxPhAPrwCYaiorS8L/uuPJh1hZFbcR8mewrx0d7JShr3F7pNW4vX0GRakKWVk7taDq7uPvFWw8YkMcPVb+vfvfRZ1i7zqFwjtmFouL72y6C/0L0Ie3GvaQXRyYVB3YZNE32/+A/D9bVLcRB3yw3hkRCdaDUtFl6Ykr20aaLvKoqIXUdbMj6GFzAmdxfWx9iIRrkDr1f27cFONGMUo/gRI/jNbIMYxJOoR1cY0OGaVPb5z9mlKbyJP/EsdmIXvsFmM7Ql42nEblX3xI1BbYbTkXCqRnxUbgzPo4T7sQBNeBG7zbAiDI8nWfZDhQWYCG4PFr+HMBQ6l5VPJybeRyJXwsdYJ/cRnlJV0yB4ZlUYtFQIkMZnst8fRrPcKezHCblz2IInMIkPzbbyb9mW42nWInc2xmE0y61AJ06oGsXL5rcOK1UdCbEXiVwNXsEy/6+EbaiVG8eeEAfxvaoSBnCH61uOD7BS1Ul8ESHBKWxCrdyd6EYNKihgEVrwOAbQruoytuBYIFfAc3gVN6iawhjKyNCEpYhVJXgbOzARyaU4hCtYizq5EI1YgiUoIlT1B7ZjByqmRWYbwtdYjoWoN7+LOIQefIqKawLzK6ID69GGpQgwhhEcwGGUzfEPAiPqsCXadFsAAAAASUVORK5CYII=" /></a></p>
 <p>A common issue when using a BigEarthNet archive is that the code to load a patch is</p>
 <ul class="simple">
 <li><p>Slow</p></li>
@@ -230,7 +233,7 @@ Usually, these arrays can be loaded without copying the underlying data.</p>
 <p>The provided patch interface will define a Python class containing the relevant bands, encoded as an <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code>, and may include some metadata.
 The interface class allows for fast introspection, validation, and data loading.</p>
 <p>It is easier to convert this intermediate data format to a more deep-learning optimized format or use the class itself for embedding in a key-value storage format like LMDB.
-Please refer to the official <a class="reference external" href="https://docs.kai-tub.tech/bigearthnet_encoder/">BigEarthNet Encoder</a> documentation for details on how to <em>generate</em> various output formats.</p>
+Please refer to the official  documentation for details on how to <em>generate</em> various output formats.</p>
 <p>In general, the encoding pipeline is as follows:</p>
 <ol class="arabic simple">
 <li><p>Convert the BigEarthNet patches into numpy arrays</p></li>
@@ -239,10 +242,10 @@ Please refer to the official <a class="reference external" href="https://docs.ka
 <li><p>Serialize/convert the data to the desired output format</p></li>
 </ol>
 <p>The decoder should be as simple as possible with minimal dependencies.
-Ideally, the correct usage of the decoder should also be depicted in the corresponding <a class="reference external" href="https://docs.kai-tub.tech/bigearthnet_encoder/">BigEarthNet Encoder</a> section.</p>
+Ideally, the correct usage of the decoder should also be depicted in the corresponding  section.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This interface is tightly coupled with the <a class="reference external" href="https://docs.kai-tub.tech/bigearthnet_encoder/">BigEarthNet Encoder</a> libary!</p>
+<p>This interface is tightly coupled with the  libary!</p>
 <p>The main reason for providing this interface as a <em>standalone</em> package is to minimize the required dependencies of a user that wants to load/use already encoded patches.
 Creating the interface from the <em>raw</em> data requires heavy libraries that often cause binary conflicts.
 The interface class can be installed as a standalone library and only requires the (easier to install) <em>decoder</em> libraries.</p>
@@ -263,7 +266,7 @@ The interface class can be installed as a standalone library and only requires t
                 </div>
                 <div class="title">Installation</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           
         </div>
@@ -302,11 +305,5 @@ The interface class can be installed as a standalone library and only requires t
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
     </body>
 </html>

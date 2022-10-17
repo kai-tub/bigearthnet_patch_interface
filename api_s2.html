@@ -5,14 +5,11 @@
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="BigEarthNet-S1-S2 Merged Patch Interface" href="api_merged.html" /><link rel="prev" title="BigEarthNet-S1 Patch-Interface" href="api_s1.html" />
 
-    <meta name="generator" content="sphinx-4.5.0, furo 2022.04.07"/>
+    <meta name="generator" content="sphinx-4.5.0, furo 2022.09.29"/>
         <title>BigEarthNet-S2 Patch-Interface - BigEarthNet Patch Interface documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=68f4518137b9aefe99b631505a2064c3c42c9852" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
@@ -167,6 +164,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="05_internal.html">Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general/dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general/code_of_conduct.html">Contributor Covenant Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="general/license.html">License</a></li>
 </ul>
 
 </div>
@@ -185,7 +185,9 @@
           </svg>
           <span>Back to top</span>
         </a>
-        <div class="content-icon-container"><div class="theme-toggle-container theme-toggle-content">
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -203,8 +205,52 @@
 <span id="api-s2-header"></span><h1>BigEarthNet-S2 Patch-Interface<a class="headerlink" href="#bigearthnet-s2-patch-interface" title="Permalink to this headline">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bigearthnet_patch_interface.s2_interface.</span></span><span class="sig-name descname"><span class="pre">BigEarthNet_S2_Patch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">band01</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band02</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band03</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band04</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band05</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band06</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band07</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band08</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band8A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band09</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band11</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band12</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch" title="Permalink to this definition">#</a></dt>
-<dd><dl class="py property">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">bigearthnet_patch_interface.s2_interface.</span></span><span class="sig-name descname"><span class="pre">BigEarthNet_S2_Patch</span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch" title="Permalink to this definition">#</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">band01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band03</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band8A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">band12</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.__init__" title="Permalink to this definition">#</a></dt>
+<dd><p>Original BigEarthNet-S2 patch class.
+Will store any additional keyword arguments as attributes
+and also in <cite>__stored_args__</cite>.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>band01 (np.ndarray): 60m band
+band02 (np.ndarray): 10m band
+band03 (np.ndarray): 10m band
+band04 (np.ndarray): 10m band
+band05 (np.ndarray): 20m band
+band06 (np.ndarray): 20m band
+band07 (np.ndarray): 20m band
+band08 (np.ndarray): 10m band
+band8A (np.ndarray): 20m band
+band09 (np.ndarray): 60m band
+band11 (np.ndarray): 20m band
+band12 (np.ndarray): 20m band</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>band01</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band02</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band03</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band04</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band05</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band06</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band07</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band08</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band8A</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band09</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band11</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>band12</strong> (<em>numpy.ndarray</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.bands">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">bands</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">bigearthnet_patch_interface.patch_interface.TBand</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Get a naturally sorted list of bands.</p>
@@ -213,21 +259,34 @@
 </dd>
 </dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.dump">
-<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.dump" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.dump" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert the instance to a <cite>pickle</cite> binary stream and write to <cite>file</cite>.
 Will call <cite>pickle.dump</cite> with <cite>protocol=4</cite> internally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.dumps">
-<span class="sig-name descname"><span class="pre">dumps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.dumps" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">dumps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.dumps" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert the instance to a <cite>pickle</cite> binary stream.
 Will call <cite>pickle.dump</cite> with <cite>protocol=4</cite> internally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bytes</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_10m_bands">
-<span class="sig-name descname"><span class="pre">get_10m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_10m_bands" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_10m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_10m_bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the _data_ of the 10m bands of the patch interface as a tuple
 The ordering is given by <cite>self.bands</cite>.
 The ordering is guaranteed to be naturally sorted:
@@ -236,10 +295,16 @@ B02, B03, B04, B08</p>
 <dt>Returns:</dt><dd><p>Tuple[np.ndarray]: Bands: B02, B03, B04, B08</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Tuple</em>[numpy.ndarray, …]</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_20m_bands">
-<span class="sig-name descname"><span class="pre">get_20m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_20m_bands" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_20m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_20m_bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the _data_ of the 20m bands of the patch interface as a tuple
 The ordering is given by <cite>self.bands</cite>.
 The ordering is guaranteed to be naturally sorted:
@@ -248,10 +313,16 @@ B05, B06, B07, B8A, B11, B12</p>
 <dt>Returns:</dt><dd><p>Tuple[np.ndarray]: Bands: B05, B06, B07, B8A, B11, B12</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Tuple</em>[numpy.ndarray, …]</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_60m_bands">
-<span class="sig-name descname"><span class="pre">get_60m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_60m_bands" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_60m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_60m_bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Get  the _data_ of the 60m bands of the patch interface as a tuple
 The ordering is given by <cite>self.bands</cite>.
 The ordering is guaranteed to be naturally sorted:
@@ -260,10 +331,16 @@ B01, B09</p>
 <dt>Returns:</dt><dd><p>Tuple[np.ndarray]: Bands: B01, B09</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Tuple</em>[numpy.ndarray, …]</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_band_by_name">
-<span class="sig-name descname"><span class="pre">get_band_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="05_internal.html#bigearthnet_patch_interface.band_interface.Band" title="bigearthnet_patch_interface.band_interface.Band"><span class="pre">bigearthnet_patch_interface.band_interface.Band</span></a></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_band_by_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_band_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_band_by_name" title="Permalink to this definition">#</a></dt>
 <dd><p>Access a specific band by looking up the name.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>name (str): Name of the band (B01, B8A, B10, etc.)</p>
@@ -273,20 +350,38 @@ B01, B09</p>
 <dt>Returns:</dt><dd><p>Band: Selected band.</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bigearthnet_patch_interface.band_interface.Band</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_band_data_by_name">
-<span class="sig-name descname"><span class="pre">get_band_data_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_band_data_by_name" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_band_data_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_band_data_by_name" title="Permalink to this definition">#</a></dt>
 <dd><p>Get the numpy array of the selected band by looking up the name.
 Calls <cite>get_band_by_name</cite> under the hood.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><p>np.ndarray: Band data</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_natsorted_bands_by_spatial_res">
-<span class="sig-name descname"><span class="pre">get_natsorted_bands_by_spatial_res</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spatial_resolution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_natsorted_bands_by_spatial_res" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_natsorted_bands_by_spatial_res</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spatial_resolution</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_natsorted_bands_by_spatial_res" title="Permalink to this definition">#</a></dt>
 <dd><p>Get naturally sorted bands filtered by the
 given spatial resolution</p>
 <dl class="simple">
@@ -295,64 +390,135 @@ given spatial resolution</p>
 <dt>Returns:</dt><dd><p>Tuple[np.ndarray, …]: Bands as Tuples</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>spatial_resolution</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Tuple</em>[numpy.ndarray, …]</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_10m_bands">
-<span class="sig-name descname"><span class="pre">get_stacked_10m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_10m_bands" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_stacked_10m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_10m_bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Quick way to get the 10m bands already stacked.
 Calls <cite>np.stack(self.get_10m_bands())</cite>.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><p>np.ndarray: Stacked 10m bands</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_20m_bands">
-<span class="sig-name descname"><span class="pre">get_stacked_20m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_20m_bands" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_stacked_20m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_20m_bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Quick way to get the 20m bands already stacked.
 Calls <cite>np.stack(self.get_20m_bands())</cite>.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><p>np.ndarray: Stacked 20m bands</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_60m_bands">
-<span class="sig-name descname"><span class="pre">get_stacked_60m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_60m_bands" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_stacked_60m_bands</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.get_stacked_60m_bands" title="Permalink to this definition">#</a></dt>
 <dd><p>Quick way to get the 60m bands already stacked.
 Calls <cite>np.stack(self.get_60m_bands())</cite>.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><p>np.ndarray: Stacked 60m bands</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.load">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bigearthnet_patch_interface.patch_interface.TPatch</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.load" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.load" title="Permalink to this definition">#</a></dt>
 <dd><p>Calls <cite>pickle.load</cite> under the hood.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="05_internal.html#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch" title="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch">bigearthnet_patch_interface.patch_interface.BigEarthNetPatch</a></p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.loads">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">bigearthnet_patch_interface.patch_interface.TPatch</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.loads" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">loads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.loads" title="Permalink to this definition">#</a></dt>
 <dd><p>Calls <cite>pickle.loads</cite> under the hood.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="05_internal.html#bigearthnet_patch_interface.patch_interface.BigEarthNetPatch" title="bigearthnet_patch_interface.patch_interface.BigEarthNetPatch">bigearthnet_patch_interface.patch_interface.BigEarthNetPatch</a></p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.short_init">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">short_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B01</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B02</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B03</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B04</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B05</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B06</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B07</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B08</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B8A</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B09</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B11</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B12</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch" title="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch"><span class="pre">bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch</span></a></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.short_init" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">short_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B02</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B03</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B04</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B8A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B09</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B12</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.short_init" title="Permalink to this definition">#</a></dt>
 <dd><p>Alternative <cite>__init__</cite> function.
 Only differences are the encoded names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>B01</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B02</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B03</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B04</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B05</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B06</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B07</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B08</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B8A</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B09</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B11</strong> (<em>numpy.ndarray</em>) – </p></li>
+<li><p><strong>B12</strong> (<em>numpy.ndarray</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch" title="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch">bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch</a></p>
+</dd>
+</dl>
 </dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.short_to_long_band_name">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">short_to_long_band_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">short_band_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">FieldInfo(default=Ellipsis,</span> <span class="pre">min_length=1,</span> <span class="pre">max_length=4,</span> <span class="pre">extra={})</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.short_to_long_band_name" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">short_to_long_band_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">short_band_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">FieldInfo(default=Ellipsis,</span> <span class="pre">min_length=1,</span> <span class="pre">max_length=4,</span> <span class="pre">extra={})</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bigearthnet_patch_interface.s2_interface.BigEarthNet_S2_Patch.short_to_long_band_name" title="Permalink to this definition">#</a></dt>
 <dd><p>Convert a short input band name, such as B01, 01, 1 or B1
 to the long band name required by the <cite>__init__</cite> function.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>short_band_name (str): Short band name</p>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>short_band_name</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
+
 </dd></dl>
+
 </section>
 
         </article>
@@ -367,10 +533,10 @@ to the long band name required by the <cite>__init__</cite> function.</p>
                 </div>
                 <div class="title">BigEarthNet-S1-S2 Merged Patch Interface</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="api_s1.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -416,11 +582,5 @@ to the long band name required by the <cite>__init__</cite> function.</p>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
     </body>
 </html>
