@@ -3,6 +3,7 @@ docs/jupyter_execute/
 .vscode/
 ###
 
+.pdm.toml
 # hide this for now
 *.bak
 .gitattributes

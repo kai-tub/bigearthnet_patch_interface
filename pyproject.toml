@@ -1,52 +1,92 @@
-[tool.poetry]
-name = "bigearthnet_patch_interface"
+[project]
+name = "bigearthnet-patch-interface"
 version = "0.1.1"
 description = "A simple interface class that includes all the relevant information about BigEarthNet patches."
-authors = ["Kai Norman Clasen <k.clasen@protonmail.com>"]
-license = "Apache Software License 2.0"
+authors = [
+    {name = "Kai Norman Clasen", email= "k.clasen@protonmail.com"},
+]
+license = {text = "Apache Software License 2.0"}
 readme = "README.md"
+#- Uses the < syntax instead of <= because conda-forge does not work correctly with <=
+# deps-start
+requires-python = ">=3.8"
+dependencies = [
+    "pydantic>=1.8",
+    "numpy>=1.20",
+    "natsort>=8",
+]
+# deps-end
+
+[project.urls]
 homepage = "https://github.com/kai-tub/bigearthnet_patch_interface/"
 repository = "https://github.com/kai-tub/bigearthnet_patch_interface/"
+documentation = "https://kai-tub.github.io/bigearthnet_patch_interface"
 
-documentation = "https://github.com/kai-tub.github.io/bigearthnet_patch_interface"
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"
 
-include = [
+[tool.pdm.build]
+includes = [
     "LICENSE",
+    "src",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.8, <3.11"
-pydantic = "^1.9"
-numpy = "^1.21"
-natsort = "^8"
-
-[tool.poetry.dev-dependencies]
-black = "*"
-isort = "*"
-pytest = "*"
-Sphinx = "^4.5"
-furo = "*"
-livereload = "*"
-sphinx-external-toc = "*"
-pre-commit = "*"
-myst-nb = "*"
-jupyter = "*"
-sphinx-autobuild = "*"
-ipykernel = "*"
-linkify-it-py = "*"
-rasterio = {version = "^1.2.10", allow-prereleases = true}
-mypy = "*"
-autodoc-pydantic = "^1.7.1"
-sphinx_design = "^0.1.0"
-
+[tool.pdm.dev-dependencies]
+docs = [
+    "myst-nb>=0.16",
+    "Sphinx>=4.5",
+    "sphinx-autobuild",
+    "sphinx-external-toc",
+    "linkify-it-py",
+    "furo",
+    "common-nb-preprocessors>=1",
+]
+test = [
+    "pytest",
+    "pre-commit",
+    "jupyter",
+    "notebook",
+]
+lint = [
+    "black[jupyter]",
+    "isort",
+    "nbstripout",
+    "mypy",
+]
 [tool.mypy]
 exclude = ["tests"]
 # common plugins:
-# plugins = "numpy.typing.mypy_plugin"ypy = "^0.960"
+# plugins = "numpy.typing.mypy_plugin"
 
 [tool.isort]
 profile = "black"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.pdm.scripts]
+check-pre-commit = "pre-commit run --all-files"
+check-types = "mypy src"
+
+lint.composite = [
+    "pre-commit",
+    "check-types",
+]
+lint.help = "Will check if all files are formatted with black & isort"
+
+build-docs.cmd = "sphinx-build docs docs/_build/"
+build-docs.help = "Build Sphinx documentation"
+serve-sphinx-docs.cmd = "sphinx-autobuild docs docs/_build --open-browser"
+serve-sphinx-docs.help = "Serve the Sphinx documentation with sphinx-autobuild"
+
+tests = "pytest tests/"
+# If coverage is desired:
+# tests = "coverage run --parallel --source bigearthnet_patch_interface -m pytest tests"
+# coverage_report.composite = [
+#     "coverage combine",
+#     "coverage report --fail-under 95",
+# ]
+# coverage_html_report = "coverage html"
+# coverage_html.composite = [
+#     "tests",
+#     "coverage_html_report"
+# ]
+# coverage_html.help = "Run the coverage with pytest and produce the html"
