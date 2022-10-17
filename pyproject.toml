@@ -1,6 +1,6 @@
 [project]
 name = "bigearthnet-patch-interface"
-version = "0.1.1"
+version = "0.1.2"
 description = "A simple interface class that includes all the relevant information about BigEarthNet patches."
 authors = [
     {name = "Kai Norman Clasen", email= "k.clasen@protonmail.com"},
