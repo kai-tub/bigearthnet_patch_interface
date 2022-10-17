@@ -115,14 +115,14 @@ class BigEarthNetPatch(ABC):
         return pickle.dumps(self, protocol=4)
 
     @staticmethod
-    def load(file) -> TPatch:
+    def load(file) -> "BigEarthNetPatch":
         """
         Calls `pickle.load` under the hood.
         """
         return pickle.load(file)
 
     @staticmethod
-    def loads(data) -> TPatch:
+    def loads(data) -> "BigEarthNetPatch":
         """
         Calls `pickle.loads` under the hood.
         """

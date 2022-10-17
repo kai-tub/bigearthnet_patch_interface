@@ -1,1 +1,1 @@
-"""Test package for bigearthnet_patch_interface."""
+"""Test package for bigearthnet-patch-interface."""

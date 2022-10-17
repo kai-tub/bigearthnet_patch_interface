@@ -33,18 +33,16 @@ extensions = [
     "sphinx.ext.intersphinx",
     "sphinx.ext.autodoc",
     # Other popular choices:
+    # "sphinx_design",
     # "myst_parser",
+    # "sphinx_cli_recorder",
     # "sphinxcontrib.mermaid",
-    "sphinx_design",
+    # "sphinx_design",
     # "sphinx_inline_tabs",
     # "sphinx_comments",
     # "sphinx.ext.todo",
     # "sphinxcontrib.bibtex",
-    "sphinxcontrib.autodoc_pydantic",
 ]
-autodoc_pydantic_model_show_json = False
-autodoc_pydantic_settings_show_json = False
-
 external_toc_path = "_toc.yml"
 
 myst_enable_extensions = [
@@ -62,15 +60,25 @@ myst_enable_extensions = [
     "substitution",
     "tasklist",
 ]
+
+# TODO: Enable by default once by package is stable
+nb_custom_formats = {
+    ".ipynb": [
+        "common_nb_preprocessors.myst_nb_metadata_injector",
+        {"prefix": "#", "delimiter": "="},
+    ]
+}
+
+# Recommendation from furo
+# https://pradyunsg.me/furo/kitchen-sink/api/
+autodoc_typehints = "description"
+autodoc_class_signature = "separated"
+
 source_suffix = {".ipynb": "myst-nb", ".md": "myst-nb"}
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "jupyter_execute"]
-
-myst_substitutions = {
-    "BenEncoder": "[BigEarthNet Encoder](https://docs.kai-tub.tech/bigearthnet_encoder/)",
-}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

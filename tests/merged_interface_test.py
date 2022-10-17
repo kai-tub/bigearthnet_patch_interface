@@ -86,4 +86,10 @@ def test_patches_nat_order():
     )
 
 
-# FUTURE: Write tests that check the printed output
+def test_pickle_unpickle_print():
+    ben_patch = BigEarthNet_S1_S2_Patch(**TEST_BANDS)
+    prev_repr = ben_patch.__repr__()
+    d = ben_patch.dumps()
+    del ben_patch
+    ben_patch_2 = BigEarthNet_S1_S2_Patch.loads(d)
+    assert prev_repr == ben_patch_2.__repr__()
